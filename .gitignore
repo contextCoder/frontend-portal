@@ -4,6 +4,8 @@
 /node_modules
 package-lock.json
 
+/build
+
 .env.local
 .env.development.local
 .env.test.local
