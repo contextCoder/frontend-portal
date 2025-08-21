@@ -1,10 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import './Login.css';
+import { useGlobalSpinner } from '../globleSpinner/SpinnerContext';
+import ToastContainer from '../custom-hooks/ToastContainer';
+import useToast from '../custom-hooks/useToast';
+
 const backendUrl = process.env.REACT_APP_BACKEND_AUTHENTICATION;
 
 const Login = () => {
-  const [error, setError] = React.useState('')
+  const { showSpinner, hideSpinner } = useGlobalSpinner();
+  const { toasts, addToast, removeToast } = useToast();
   const [formdata, setFormdata] = React.useState({
     email: '',
     password: ''
@@ -13,6 +19,7 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
+    showSpinner();
     const requestObject = {
       method: 'POST',
       url: `${backendUrl}/login`,
@@ -33,12 +40,17 @@ const Login = () => {
       if (response.status === 200) {
         const data = response.data;
         if (data.status === 'success') {
-          navigate('/dashboard');
+          addToast('success', 'Login successful!');
+          setTimeout(() => {
+            navigate('/dashboard');
+          }, 8000);
         }
       }
     } catch (err) {
       console.log(err);
-      setError(err.response.data.msg);
+      addToast('error', err.response.data.msg);
+    } finally {
+      hideSpinner();
     }
   }
 
@@ -47,23 +59,52 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="text" id="email" name="email" required value={formdata.email} placeholder='Enter Your Email' onChange={(e) => setFormdata({ ...formdata, email: e.target.value })} />
+        <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">React Demo</h2>
+        <form className="login-form">
+          {/* Email */}
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={formdata.email}
+              onChange={(e) => setFormdata({ ...formdata, email: e.target.value })}
+              required
+              placeholder="you@example.com"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={formdata.password}
+              onChange={(e) => setFormdata({ ...formdata, password: e.target.value })}
+              required
+              placeholder="••••••••"
+            />
+          </div>
+
+          {/* Button */}
+          <button type="submit" className="login-btn" onClick={handleLogin}>
+            Sign In
+          </button>
+           <button type="submit" className="sign-in-btn" onClick={handleSignIn}>
+            Sign In
+          </button>
+        </form>
+
+        <div className="login-footer">
+          <a href="/forgot-password">Forgot password?</a>
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required value={formdata.password} placeholder='Enter Your Password' onChange={(e) => setFormdata({ ...formdata, password: e.target.value })} />
-        </div>
-        <button type="submit" onClick={handleLogin}>Login</button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleSignIn}>Sign In</button>
+      </div>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>
-  )
+  );
 }
 
 export default Login

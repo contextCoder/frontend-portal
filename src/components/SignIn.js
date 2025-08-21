@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './Sign.css';
+import { useGlobalSpinner } from '../globleSpinner/SpinnerContext';
+
+const backendUrl = process.env.REACT_APP_BACKEND_AUTHENTICATION;
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ username: '', password: '', email: '' });
-  const [error, setError] = useState('');
+  const { showSpinner, hideSpinner } = useGlobalSpinner();
+  const [form, setForm] = useState({ username: '', password: '', email: '', confirmPassword: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
+    if (e.target.name === 'confirmPassword' && e.target.value !== form.password) {
+      setError("Passwords do not match");
+    } else {
+      setError("");
+    }
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -16,55 +27,109 @@ const SignIn = () => {
     setError('');
 
     try {
-
+      showSpinner();
       console.log('form---', form)
-      const response = await axios.post('http://localhost:3333/createUser', form);
+      const response = await axios.post(`${backendUrl}/createUser`, form);
       console.log('Login success:', response.data);
       navigate('/login');
       // handle redirect or token save here
     } catch (err) {
       console.error('Login error:', err);
       setError(err.response.data.error);
+    } finally {
+      hideSpinner();
     }
   };
 
-  return (
-    <div style={{ maxWidth: '400px', margin: 'auto', padding: '1rem' }}>
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label><br />
-          <input
-            type="text"
-            name="username"
-            value={form.username}
-            onChange={handleChange}
-            required
-          />
+  return (<div className="register-container">
+      <div className={`register-card ${error ? "shake" : ""}`}>
+        <h2 className="register-title">Create Account ✨</h2>
+        <form className="register-form">
+          {/* Email */}
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+              placeholder="you@example.com"
+            />
+          </div>
+
+          {/* Username */}
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={form.username}
+              onChange={handleChange}
+              required
+              placeholder="Enter username"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="form-group password-group">
+            <label htmlFor="password">Password</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                required
+                placeholder="••••••••"
+              />
+              <span
+                className="eye-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </span>
+            </div>
+          </div>
+
+          {/* Confirm Password */}
+          <div className="form-group password-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                required
+                placeholder="••••••••"
+              />
+              <span
+                className="eye-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </span>
+            </div>
+          </div>
+
+          {/* Error Message */}
+          {error && <p className="error-text">{error}</p>}
+
+          {/* Button */}
+          <button type="submit" className="register-btn" onClick={handleSubmit}>
+            Sign Up
+          </button>
+        </form>
+
+        <div className="register-footer">
+          <p>Already have an account? <a href="/login">Sign In</a></p>
         </div>
-        <div style={{ marginTop: '1rem' }}>
-          <label>Password:</label><br />
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div style={{ marginTop: '1rem' }}>
-          <label>Email:</label><br />
-          <input
-            type="text"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit" style={{ marginTop: '1rem' }}>Login</button>
-      </form>
+      </div>
     </div>
   );
 };

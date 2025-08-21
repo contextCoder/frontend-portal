@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Background with gradient */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  animation: fadeIn 1s ease-in;
+}
+
+/* Card styling */
+.login-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  animation: slideUp 0.6s ease-out;
+}
+
+/* Title */
+.login-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Labels */
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #444;
+}
+
+/* Inputs */
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 6px rgba(102, 126, 234, 0.6);
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  background: #667eea;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #5a67d8;
+  transform: scale(1.03);
+  box-shadow: 0 8px 18px rgba(90, 103, 216, 0.4);
+}
+
+/* Footer link */
+.login-footer {
+  text-align: center;
+  margin-top: 1.2rem;
+}
+
+.login-footer a {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #667eea;
+  transition: color 0.3s;
+}
+
+.login-footer a:hover {
+  color: #5a67d8;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+}

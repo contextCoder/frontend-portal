@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from '../components/Login';
 import Dashboard from '../pages/Dashboard';
 import Logout from '../components/Logout';
-import SignIn from '../components/SignIn'; // Assuming SignIn is a component you want to use
+import SignIn from '../components/SignIn';
+import ForgotPass from '../components/ForgotPass';
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
         <Route path="/logout" element={<Logout />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/forgot-password" element={<ForgotPass />} />
       </Routes>
     </Router>
   )
