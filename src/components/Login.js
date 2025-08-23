@@ -41,14 +41,12 @@ const Login = () => {
         const data = response.data;
         if (data.status === 'success') {
           addToast('success', 'Login successful!');
-          setTimeout(() => {
-            navigate('/dashboard');
-          }, 8000);
+          navigate('/dashboard', {state: {user: data.user}});
         }
       }
     } catch (err) {
       console.log(err);
-      addToast('error', err.response.data.msg);
+      addToast('error', err.response.data.message || 'Login failed. Please try again.');
     } finally {
       hideSpinner();
     }

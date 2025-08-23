@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard';
 import Logout from '../components/Logout';
 import SignIn from '../components/SignIn';
 import ForgotPass from '../components/ForgotPass';
+import ActivationNotice from '../components/shared/Activation_Notice/ActivationNotice';
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPass />} />
+        <Route path="/activationNotification" element={<ActivationNotice />} />
       </Routes>
     </Router>
   )

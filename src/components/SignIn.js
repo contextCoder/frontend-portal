@@ -11,38 +11,70 @@ const SignIn = () => {
   const { showSpinner, hideSpinner } = useGlobalSpinner();
   const [form, setForm] = useState({ username: '', password: '', email: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const usernameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/;
+  const validate = (name, value) => {
+    let newErrors = { ...errors };
+
+    if (name === "username") {
+      if (!value.trim()) {
+        newErrors.username = "Username is required.";
+      } else if (value === form.email) {
+        console.log('---', value)
+        newErrors.username = "Username and email cannot be the same.";
+      } else if (!usernameRegex.test(value)) {
+        newErrors.username =
+          "Username must contain uppercase, lowercase and a number.";
+      } else {
+        delete newErrors.username;
+      }
+    }
+
+    if (name === "email") {
+      if (!value.trim()) {
+        newErrors.email = "Email is required.";
+      } else if (value === form.username) {
+        newErrors.email = "Email and username cannot be the same.";
+      } else {
+        delete newErrors.email;
+      }
+    }
+
+    setErrors(newErrors);
+  };
 
   const handleChange = (e) => {
     if (e.target.name === 'confirmPassword' && e.target.value !== form.password) {
-      setError("Passwords do not match");
+      setErrors("Passwords do not match");
     } else {
-      setError("");
+      setErrors("");
     }
     setForm({ ...form, [e.target.name]: e.target.value });
+    validate(e.target.name, e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setErrors('');
 
     try {
       showSpinner();
       console.log('form---', form)
       const response = await axios.post(`${backendUrl}/createUser`, form);
       console.log('Login success:', response.data);
-      navigate('/login');
+      navigate("/activationNotification", { state: { email: form.email } });
       // handle redirect or token save here
     } catch (err) {
       console.error('Login error:', err);
-      setError(err.response.data.error);
+      setErrors(err.response.data.error);
     } finally {
       hideSpinner();
     }
   };
 
   return (<div className="register-container">
-      <div className={`register-card ${error ? "shake" : ""}`}>
+      <div className={`register-card ${errors && Object.keys(errors).length > 0 ? "shake" : ""}`}>
         <h2 className="register-title">Create Account ✨</h2>
         <form className="register-form">
           {/* Email */}
@@ -57,6 +89,7 @@ const SignIn = () => {
               required
               placeholder="you@example.com"
             />
+            {errors?.email && <p className="error-text">{errors?.email}</p>}
           </div>
 
           {/* Username */}
@@ -71,6 +104,9 @@ const SignIn = () => {
               required
               placeholder="Enter username"
             />
+             {errors.username && (
+            <p className="error-text">{errors.username}</p>
+          )}
           </div>
 
           {/* Password */}
@@ -118,7 +154,13 @@ const SignIn = () => {
           </div>
 
           {/* Error Message */}
-          {error && <p className="error-text">{error}</p>}
+          {errors && Object.keys(errors).length > 0 && (
+            <div className="errors-text">
+              {Object.keys(errors).map((key) => (
+                <p key={key}>{errors[key]}</p>
+              ))}
+            </div>
+          )}
 
           {/* Button */}
           <button type="submit" className="register-btn" onClick={handleSubmit}>
