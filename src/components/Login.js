@@ -89,10 +89,10 @@ const Login = () => {
 
           {/* Button */}
           <button type="submit" className="login-btn" onClick={handleLogin}>
-            Sign In
+            Log In
           </button>
            <button type="submit" className="sign-in-btn" onClick={handleSignIn}>
-            Sign In
+            Sign up
           </button>
         </form>
 
