@@ -67,7 +67,7 @@
 }
 
 /* Button */
-.login-btn {
+.login-btn, .sign-in-btn {
   width: 100%;
   padding: 0.9rem;
   border: none;
@@ -80,7 +80,7 @@
   transition: all 0.3s ease;
 }
 
-.login-btn:hover {
+.login-btn:hover, .sign-in-btn:hover {
   background: #5a67d8;
   transform: scale(1.03);
   box-shadow: 0 8px 18px rgba(90, 103, 216, 0.4);
