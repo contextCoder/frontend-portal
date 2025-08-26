@@ -41,7 +41,7 @@ const Login = () => {
         const data = response.data;
         if (data.status === 'success') {
           addToast('success', 'Login successful!');
-          navigate('/dashboard', {state: {user: data.user}});
+          navigate('/dashboard', { state: { user: data.user } });
         }
       }
     } catch (err) {
@@ -57,11 +57,10 @@ const Login = () => {
   };
 
   return (
-        <div className="login-container">
+    <div className="login-container">
       <div className="login-card">
         <h2 className="login-title">React Demo</h2>
         <form className="login-form">
-          {/* Email */}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -73,8 +72,6 @@ const Login = () => {
               placeholder="you@example.com"
             />
           </div>
-
-          {/* Password */}
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -87,11 +84,10 @@ const Login = () => {
             />
           </div>
 
-          {/* Button */}
           <button type="submit" className="login-btn" onClick={handleLogin}>
             Log In
           </button>
-           <button type="submit" className="sign-in-btn" onClick={handleSignIn}>
+          <button type="submit" className="sign-in-btn" onClick={handleSignIn}>
             Sign up
           </button>
         </form>
