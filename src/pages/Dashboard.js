@@ -32,9 +32,9 @@ const Dashboard = () => {
       <aside className="sidebar">
         <h2 className="sidebar-logo">Team Up</h2>
         <ul className="sidebar-menu">
-          <li className="active">🏠 Dashboard</li>
-          <li>👤 Profile</li>
-          <li>⚙️ Settings</li>
+          <li className="active">Dashboard</li>
+          <li onClick={() => navigate('/profile')}>Profile</li>
+          <li onClick={() => navigate('/settings')}>Settings</li>
           <li onClick={() => navigate('/logout')} className="logout-btn">🚪 Logout</li>
         </ul>
       </aside>
@@ -42,19 +42,19 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="main-content">
         <header className="dashboard-header">
-          <h2>Welcome back, {response?.data?.user?.username} 👋</h2>
+          <h2>Welcome, {response?.data?.user?.username} 👋</h2>
         </header>
         <section className="dashboard-body">
           <div className="card">
-            <h3>📊 Analytics</h3>
+            <h3>Analytics</h3>
             <p>This is where your analytics or insights could be displayed.</p>
           </div>
           <div className="card">
-            <h3>📝 Recent Activity</h3>
+            <h3>Recent Activity</h3>
             <p>No recent activity to show yet.</p>
           </div>
           <div className="card">
-            <h3>🔔 Notifications</h3>
+            <h3>Notifications</h3>
             <p>You have no new notifications.</p>
           </div>
         </section>
