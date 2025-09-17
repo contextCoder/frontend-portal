@@ -31,7 +31,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       {/* Sidebar */}
       <aside className="sidebar">
-        <h2 className="sidebar-logo">Team Up</h2>
+        <h2 className="sidebar-logo">Book a Team</h2>
         <ul className="sidebar-menu">
           <li className="active">Dashboard</li>
           <li onClick={() => navigate('/profile')}>Profile</li>

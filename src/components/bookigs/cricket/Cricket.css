@@ -1,9 +1,25 @@
 /* cricket.css */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .cricket-container {
+  flex: 1; /* take full height */
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   max-width: 900px;
   margin: 0 auto;
 }
+
 
 .ground-list {
   display: flex;
@@ -19,7 +35,7 @@
   padding: 1rem 1.5rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  flex: 1 1 calc(45% - 1rem);
+  flex: 1 1 calc(45% - 1rem); /* 2 per row on larger screens */
   text-align: center;
   min-width: 140px;
 }
@@ -39,4 +55,37 @@
   text-align: center;
   margin: 1.5rem 0;
   font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* 📱 Mobile-first */
+@media (max-width: 600px) {
+  .ground-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ground-card {
+    flex: 1 1 100%;       /* Full width */
+    max-width: 100%;
+    font-size: 1.2rem;    /* Bigger text */
+    padding: 1.5rem;      /* More touch-friendly */
+  }
+
+  .ground-title {
+    font-size: 1.8rem;    /* Larger heading for mobile */
+  }
+}
+
+/* 💻 Tablet & Desktop */
+@media (min-width: 768px) {
+  .ground-card {
+    flex: 1 1 calc(45% - 1rem);
+    font-size: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .ground-title {
+    font-size: 2rem;
+  }
 }
