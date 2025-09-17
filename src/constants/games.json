@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Cricket",
+    "genre": "Sports",
+    "url": "https://example.com/cricket"
+  },
+  {
+    "id": 2,
+    "name": "Badminton",
+    "genre": "Sports",
+    "url": "https://example.com/badminton"
+  },
+  {
+    "id": 3,
+    "name": "Pickleball",
+    "genre": "Sports",
+    "url": "https://example.com/pickleball"
+  }
+]

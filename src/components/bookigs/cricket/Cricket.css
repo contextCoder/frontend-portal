@@ -1,0 +1,42 @@
+/* cricket.css */
+.cricket-container {
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ground-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.ground-card {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  flex: 1 1 calc(45% - 1rem);
+  text-align: center;
+  min-width: 140px;
+}
+
+.ground-card:hover {
+  background: #e9ecef;
+  transform: scale(1.05);
+}
+
+.ground-card.active {
+  background: #007bff;
+  color: #fff;
+  border-color: #0056b3;
+}
+
+.ground-title {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 1.5rem;
+}

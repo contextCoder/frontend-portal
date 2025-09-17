@@ -8,6 +8,8 @@ import ForgotPass from '../components/ForgotPass';
 import ActivationNotice from '../components/shared/Activation_Notice/ActivationNotice';
 import Profile from '../components/pages/profile/Profile'
 import CommanRoute from '../components/shared/noRoute/CommanRoute';
+import Cricket from '../components/bookigs/cricket/Cricket';
+
 const AppRoutes = () => {
   return (
     <Router>
@@ -20,6 +22,7 @@ const AppRoutes = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/forgot-password" element={<ForgotPass />} />
         <Route path="/activationNotification" element={<ActivationNotice />} />
+        <Route path="/games/cricket" element={<Cricket />} />
         <Route path="*" element={<CommanRoute />} />
       </Routes>
     </Router>

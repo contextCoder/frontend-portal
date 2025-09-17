@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Dashboard.css';
+import games from '../constants/games.json'
 
 const backendUrl = process.env.REACT_APP_BACKEND_AUTHENTICATION;
 
@@ -45,18 +46,13 @@ const Dashboard = () => {
           <h2>Welcome, {response?.data?.user?.username} 👋</h2>
         </header>
         <section className="dashboard-body">
-          <div className="card">
-            <h3>Analytics</h3>
-            <p>This is where your analytics or insights could be displayed.</p>
-          </div>
-          <div className="card">
-            <h3>Recent Activity</h3>
-            <p>No recent activity to show yet.</p>
-          </div>
-          <div className="card">
-            <h3>Notifications</h3>
-            <p>You have no new notifications.</p>
-          </div>
+          {games.map((game) => (
+            <div key={game.id} className="card game-card" onClick={() => navigate(`/games/${game.name.toLocaleLowerCase()}`)}>
+              <h3>{game.name}</h3>
+              <p>{game.genre}</p>
+              <img src={game.url} alt={game.name} />
+            </div>
+          ))}
         </section>
       </main>
     </div>
