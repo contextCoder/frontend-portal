@@ -1,5 +1,6 @@
 /* cricket.css */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -12,7 +13,8 @@ html, body {
 }
 
 .cricket-container {
-  flex: 1; /* take full height */
+  flex: 1;
+  /* take full height */
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -35,7 +37,8 @@ html, body {
   padding: 1rem 1.5rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  flex: 1 1 calc(45% - 1rem); /* 2 per row on larger screens */
+  flex: 1 1 calc(45% - 1rem);
+  /* 2 per row on larger screens */
   text-align: center;
   min-width: 140px;
 }
@@ -59,33 +62,22 @@ html, body {
 }
 
 /* 📱 Mobile-first */
-@media (max-width: 600px) {
-  .ground-list {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .ground-card {
-    flex: 1 1 100%;       /* Full width */
-    max-width: 100%;
-    font-size: 1.2rem;    /* Bigger text */
-    padding: 1.5rem;      /* More touch-friendly */
-  }
-
-  .ground-title {
-    font-size: 1.8rem;    /* Larger heading for mobile */
-  }
+.ground-list {
+  flex-direction: column;
+  align-items: center;
 }
 
-/* 💻 Tablet & Desktop */
-@media (min-width: 768px) {
-  .ground-card {
-    flex: 1 1 calc(45% - 1rem);
-    font-size: 1rem;
-    padding: 1rem 1.25rem;
-  }
+.ground-card {
+  flex: 1 1 100%;
+  /* Full width */
+  max-width: 100%;
+  font-size: 1.2rem;
+  /* Bigger text */
+  padding: 1.5rem;
+  /* More touch-friendly */
+}
 
-  .ground-title {
-    font-size: 2rem;
-  }
+.ground-title {
+  font-size: 1.8rem;
+  /* Larger heading for mobile */
 }
